@@ -1,0 +1,22 @@
+[project]
+name = "bmstu-docx"
+version = "0.1.0"
+description = "Convert Markdown reports into BMSTU-style DOCX documents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "markdown-it-py>=4.0.0",
+    "python-docx>=1.2.0",
+]
+
+[project.scripts]
+bmstu-docx = "bmstu_docx.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
