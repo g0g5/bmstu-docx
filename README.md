@@ -92,7 +92,8 @@ The parser is intentionally focused on report-like documents. The current implem
 - ATX headings (`#`, `##`, `###`)
 - regular paragraphs and blockquotes
 - unordered and ordered lists, including nested lists
-- fenced code blocks and inline code
+- fenced code blocks
+- inline code rendered as regular body text
 - GitHub-style tables
 - standalone images in paragraphs
 - table captions immediately before a table

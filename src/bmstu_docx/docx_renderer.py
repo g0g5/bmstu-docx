@@ -198,11 +198,6 @@ class DocxRenderer:
                 if not chunk and len(chunks) > 1:
                     continue
                 run = paragraph.add_run(chunk)
-                if span.code:
-                    apply_run_font(
-                        run, self.config.code_font_name, self.config.code_font_size_pt
-                    )
-                else:
-                    apply_run_font(run, regular_font, regular_size)
+                apply_run_font(run, regular_font, regular_size)
                 run.bold = default_bold or span.bold
                 run.italic = span.italic

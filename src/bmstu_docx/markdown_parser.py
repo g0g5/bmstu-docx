@@ -216,7 +216,7 @@ class MarkdownParser:
             if token_type == "text":
                 spans.append(InlineSpan(text=child.content, bold=bold, italic=italic))
             elif token_type == "code_inline":
-                spans.append(InlineSpan(text=child.content, code=True))
+                spans.append(InlineSpan(text=child.content, bold=bold, italic=italic))
             elif token_type == "strong_open":
                 bold = True
             elif token_type == "strong_close":
@@ -295,10 +295,9 @@ class MarkdownParser:
         for span in spans:
             if not span.text:
                 continue
-            if merged and (merged[-1].bold, merged[-1].italic, merged[-1].code) == (
+            if merged and (merged[-1].bold, merged[-1].italic) == (
                 span.bold,
                 span.italic,
-                span.code,
             ):
                 merged[-1].text += span.text
             else:

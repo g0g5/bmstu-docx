@@ -39,3 +39,15 @@ def test_parser_marks_structural_heading() -> None:
     assert isinstance(blocks[0], HeadingBlock)
     assert blocks[0].structural is True
     assert isinstance(blocks[1], ParagraphBlock)
+
+
+def test_parser_treats_inline_code_as_regular_text() -> None:
+    parser = MarkdownParser()
+    blocks = parser.parse("Текст с `inline_code()` внутри.\n")
+
+    assert len(blocks) == 1
+    assert isinstance(blocks[0], ParagraphBlock)
+    assert blocks[0].text == "Текст с inline_code() внутри."
+    assert len(blocks[0].spans) == 1
+    assert blocks[0].spans[0].bold is False
+    assert blocks[0].spans[0].italic is False

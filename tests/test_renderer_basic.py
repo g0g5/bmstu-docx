@@ -4,6 +4,7 @@ from pathlib import Path
 
 from docx import Document
 
+from bmstu_docx.config import DEFAULT_CONFIG
 from bmstu_docx.docx_renderer import DocxRenderer
 from bmstu_docx.models import HeadingBlock, InlineSpan, ParagraphBlock
 
@@ -26,3 +27,17 @@ def test_renderer_applies_page_setup_and_writes_docx(tmp_path: Path) -> None:
     assert round(section.right_margin.cm, 2) == 1.0
     assert document.paragraphs[0].text == "ВВЕДЕНИЕ"
     assert document.paragraphs[1].text == "Основной текст."
+
+
+def test_renderer_uses_body_font_for_inline_code_text(tmp_path: Path) -> None:
+    blocks = [ParagraphBlock(spans=[InlineSpan("Текст с inline_code() внутри.")])]
+    output_file = tmp_path / "output-inline.docx"
+
+    renderer = DocxRenderer()
+    renderer.save(blocks, output_file)
+
+    document = Document(str(output_file))
+    run = document.paragraphs[0].runs[0]
+
+    assert document.paragraphs[0].text == "Текст с inline_code() внутри."
+    assert run.font.name == DEFAULT_CONFIG.body_font_name

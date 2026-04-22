@@ -8,7 +8,6 @@ class InlineSpan:
     text: str
     bold: bool = False
     italic: bool = False
-    code: bool = False
 
 
 @dataclass(slots=True)
